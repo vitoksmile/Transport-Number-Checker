@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:main/repository/numberCheckerRepository.dart';
+import 'package:main/screens/camera/cameraNumberScannerPage.dart';
+import 'package:main/views/transportDetailsWidget.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ManualNumberCheckerPage extends StatefulWidget {
   const ManualNumberCheckerPage({Key? key}) : super(key: key);
@@ -68,55 +71,32 @@ class _ManualNumberCheckerPageState extends State<ManualNumberCheckerPage> {
                   return const CircularProgressIndicator();
                 }
                 if (snapshot.hasError || !snapshot.hasData) {
-                  return Text('Помилка: ${snapshot.error}');
+                  return Text(
+                    'Помилка: ${snapshot.error}',
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
+                  );
                 }
 
-                final transport = snapshot.data as Transport;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTransportItem('Модель', transport.model),
-                    _buildTransportItem('Тип авто', transport.kind),
-                    _buildTransportItem('Тип кузова', transport.body),
-                    _buildTransportItem('Рік випуску', transport.year),
-                    _buildTransportItem('Дата', transport.date),
-                    _buildTransportItem('Колір', transport.color),
-                    _buildTransportItem('Об\'єм двигуна', transport.capacity),
-                    _buildTransportItem('Вага', transport.ownWeight),
-                    _buildTransportItem('Тип дії', transport.registration),
-                    _buildTransportItem('Код АТУ', transport.regAddrKoatuu),
-                    _buildTransportItem('Код ТСЦ', transport.depCode),
-                    _buildTransportItem('ТСЦ', transport.dep),
-                  ],
+                return TransportDetailsWidget(
+                  transport: snapshot.data as Transport,
                 );
               },
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTransportItem(String title, dynamic body) {
-    return RichText(
-      text: TextSpan(
-        text: '$title: ',
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: body.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+      floatingActionButton: kIsWeb
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CameraNumberScannerPage()));
+              },
+              child: const Icon(Icons.camera_alt_outlined),
             ),
-          ),
-        ],
-      ),
     );
   }
 }

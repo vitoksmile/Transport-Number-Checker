@@ -1,10 +1,20 @@
 // ignore_for_file: file_names
 
 import 'dart:convert' as decoder;
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class NumberCheckerRepository {
+  static final NumberCheckerRepository _singleton = NumberCheckerRepository._();
+
+  factory NumberCheckerRepository() {
+    return _singleton;
+  }
+
+  NumberCheckerRepository._();
+
   Future<Transport> check(String number) async {
+    debugPrint('NumberCheckerRepository check \'$number\'');
     try {
       final uri = Uri.https(
         'opendatabot.com',
@@ -15,7 +25,7 @@ class NumberCheckerRepository {
       final json = decoder.json.decode(
         response.body.toString(),
       ) as Map<String, dynamic>;
-      print('json $json');
+      debugPrint('NumberCheckerRepository json \'$json\'');
       if (json['status'] == 'error') {
         if (json['code'] == 404) {
           return Future.error('Транспорт не знайдено');
@@ -24,7 +34,7 @@ class NumberCheckerRepository {
         }
       }
       final transport = Transport.fromJson(json);
-      print('transport $transport');
+      debugPrint('NumberCheckerRepository transport \'$transport\'');
       return transport;
     } catch (e) {
       return Future.error(e);

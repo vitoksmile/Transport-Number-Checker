@@ -6,7 +6,7 @@ Opendatabot зробив публічною та безкоштовною фун
 На основі даного API я розробив простий Flutter додаток із [відкритим вихідним кодом](https://github.com/vitoksmile/Transport-Number-Checker).
 Додаток можна запустити на Android, iOS та web.
 
-- Android версію можна завантажити [тут](https://github.com/vitoksmile/Transport-Number-Checker/raw/main/android/app/release/transportnumberchecker_release_1.0.0.apk).
+- Android версію можна завантажити [тут](https://github.com/vitoksmile/Transport-Number-Checker/releases).
 
 - Web версію можна відкрити [тут](https://vitoksmile.github.io/transport-number-checker-web).
 
@@ -16,6 +16,7 @@ Opendatabot зробив публічною та безкоштовною фун
 - Android
   
 <img src="https://raw.githubusercontent.com/vitoksmile/Transport-Number-Checker/main/screenshots/android.jpg" width="200" height="400">
+<img src="https://raw.githubusercontent.com/vitoksmile/Transport-Number-Checker/main/screenshots/android-camera.jpg" width="200" height="400">
 
 - iOS
   

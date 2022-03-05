@@ -53,7 +53,7 @@ android {
     defaultConfig {
         applicationId "com.vitoksmile.transportnumberchecker"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         signingConfig signingConfigs.release
@@ -65,6 +65,26 @@ android {
             def versionName = variant.versionName
             outputFileName = "transportnumberchecker_${flavor}_${versionName}.apk"
         }
+    }
+
+    buildTypes {
+        release {
+            aaptOptions {
+                ignoreAssetsPattern '!mlkit_pose:!mlkit_label_default_model:!hobbes.tflite:'
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'lib/**/libtranslate_jni.so'
+        exclude 'lib/**/libdigitalink.so'
+        exclude 'lib/**/libxeno_native.so'
+        exclude 'lib/**/libmlkitcommonpipeline.so'
+        exclude 'lib/**/libbarhopper_v2.so'
+        exclude 'lib/**/libclassifier_jni.so'
+        exclude 'lib/**/libface_detector_v2_jni.so'
+        exclude 'lib/**/libtensorflowlite_jni.so'
+        exclude 'lib/**/liblanguage_id_jni.so'
     }
 }
 
